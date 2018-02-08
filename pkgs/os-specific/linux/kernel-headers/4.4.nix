@@ -6,7 +6,7 @@
 assert hostPlatform.isLinux;
 
 let
-  version = "4.4.10";
+  version = "4.14.20";
   inherit (hostPlatform.platform) kernelHeadersBaseConfig;
 in
 
@@ -14,8 +14,8 @@ stdenvNoCC.mkDerivation {
   name = "linux-headers-${version}";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v4.x/linux-${version}.tar.xz";
-    sha256 = "1kpjvvd9q9wwr3314q5ymvxii4dv2d27295bzly225wlc552xhja";
+    url = "https://github.com/hardkernel/linux/archive/4.14.20-108.tar.gz";
+    sha256 = "180zf9zg33ssa2lg1vpp8pw6yzjff4f0wmwrpmpmv9mbr483xhcs";
   };
 
   targetConfig = if hostPlatform != buildPlatform then hostPlatform.config else null;

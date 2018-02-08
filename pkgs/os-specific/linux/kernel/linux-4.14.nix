@@ -9,7 +9,7 @@ import ./generic.nix (args // rec {
   extraMeta.branch = concatStrings (intersperse "." (take 2 (splitString "." version)));
 
   src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v4.x/linux-${version}.tar.xz";
-    sha256 = "14njnspxmyzpapjzm8macrv411ss63xb39nb00xix75glqmg9dsa";
+    url = "https://github.com/hardkernel/linux/archive/4.14.20-108.tar.gz";
+    sha256 = "180zf9zg33ssa2lg1vpp8pw6yzjff4f0wmwrpmpmv9mbr483xhcs";
   };
 } // (args.argsOverride or {}))
