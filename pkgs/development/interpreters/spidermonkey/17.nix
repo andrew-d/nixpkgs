@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     "--with-system-nspr"
     "--with-system-ffi"
     "--enable-readline"
-  ];
+  ] ++ stdenv.lib.optional stdenv.isAarch32 "--disable-methodjit";
 
   # hack around a make problem, see https://github.com/NixOS/nixpkgs/issues/1279#issuecomment-29547393
   preBuild = "touch -- {.,shell,jsapi-tests}/{-lpthread,-ldl}";
