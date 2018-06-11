@@ -480,6 +480,40 @@ rec {
     uboot = null;
   };
 
+  odroid-xu4 = {
+    name = "odroid-xu4";
+    kernelMajor = "2.6"; # Using "2.6" enables 2.6 kernel syscalls in glibc.
+    kernelBaseConfig = "odroidxu4_defconfig"; # Requires kernel source override.
+    kernelArch = "arm";
+    kernelDTB = true;
+    kernelAutoModules = true;
+    kernelPreferBuiltin = true;
+    kernelTarget = "zImage";
+    kernelExtraConfig = ''
+      # Hangs ODROID-XU4
+      ARM_BIG_LITTLE_CPUIDLE n
+    '';
+    gcc = {
+      arch = "armv7-a";
+      float = "hard";
+
+      # The ODROID-XU4/HC2 supports this FPU. However, if you're building this
+      # on a platform that doesn't support this FPU (e.g. a Scaleway C1, like I
+      # did), you'll need to comment this out and replace it with something
+      # more compatible (e.g. "vfpv3"). Note that if you do that, though, the
+      # first rebuild on the XU4/HC2 will involve rebuilding the world!
+      # Anecdotally, rebuilding everything takes about 2-3 days to complete.
+      fpu = "neon-vfpv4";
+    };
+
+    # TODO: uboot = pkgs.uboot-odroid; ?
+    uboot = true;
+
+    # multi_v7_defconfig isn't quite what we want, but it doesn't seem possible
+    # to override the linux-headers package here :'(
+    kernelHeadersBaseConfig = "multi_v7_defconfig";
+  };
+
   armv7l-hf-multiplatform = {
     name = "armv7l-hf-multiplatform";
     kernelMajor = "2.6"; # Using "2.6" enables 2.6 kernel syscalls in glibc.
