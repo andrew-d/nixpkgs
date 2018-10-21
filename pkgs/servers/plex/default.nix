@@ -37,6 +37,7 @@ in stdenv.mkDerivation rec {
     # Now we need to patch up the executables and libraries to work on Nix.
     # Side note: PLEASE don't put spaces in your binary names. This is stupid.
     for bin in "Plex Media Server"              \
+               "Plex Commercial Skipper"        \
                "Plex DLNA Server"               \
                "Plex Media Scanner"             \
                "Plex Media Server Tests"        \
@@ -44,8 +45,10 @@ in stdenv.mkDerivation rec {
                "Plex Script Host"               \
                "Plex Transcoder"                \
                "Plex Tuner Service"             ; do
-      patchelf --set-interpreter "${glibc.out}/lib/ld-linux-x86-64.so.2" "$out/usr/lib/plexmediaserver/$bin"
-      patchelf --set-rpath "$out/usr/lib/plexmediaserver" "$out/usr/lib/plexmediaserver/$bin"
+      if [[ -f "$out/usr/lib/plexmediaserver/$bin" ]]; then
+        patchelf --set-interpreter "${glibc.out}/lib/ld-linux-x86-64.so.2" "$out/usr/lib/plexmediaserver/$bin"
+        patchelf --set-rpath "$out/usr/lib/plexmediaserver" "$out/usr/lib/plexmediaserver/$bin"
+      fi
     done
 
     find $out/usr/lib/plexmediaserver/Resources -type f -a -perm -0100 \
@@ -66,7 +69,7 @@ in stdenv.mkDerivation rec {
     RSC=$out/usr/lib/plexmediaserver/Resources
     for db in "com.plexapp.plugins.library.db"; do
         mv $RSC/$db $RSC/base_$db
-        ln -s ${dataDir}/.skeleton/$db $RSC/$db
+        ln -s "${dataDir}/.skeleton/$db" $RSC/$db
     done
   '';
 
