@@ -6289,6 +6289,8 @@ in
 
   wakelan = callPackage ../tools/networking/wakelan { };
 
+  watchdog = callPackage ../os-specific/linux/watchdog { };
+
   wavemon = callPackage ../tools/networking/wavemon { };
 
   wdfs = callPackage ../tools/filesystems/wdfs { };
