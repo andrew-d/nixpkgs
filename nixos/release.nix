@@ -276,6 +276,7 @@ in rec {
   tests.deluge = callTest tests/deluge.nix {};
   tests.dhparams = callTest tests/dhparams.nix {};
   tests.docker = callTestOnMatchingSystems ["x86_64-linux"] tests/docker.nix {};
+  tests.docker-containers = callTestOnMatchingSystems ["x86_64-linux"] tests/docker-containers.nix {};
   tests.docker-tools = callTestOnMatchingSystems ["x86_64-linux"] tests/docker-tools.nix {};
   tests.docker-tools-overlay = callTestOnMatchingSystems ["x86_64-linux"] tests/docker-tools-overlay.nix {};
   tests.docker-edge = callTestOnMatchingSystems ["x86_64-linux"] tests/docker-edge.nix {};
