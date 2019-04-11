@@ -14,6 +14,7 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/xenolf/lego";
   goDeps = ./deps.nix;
+  subPackages = [ "cmd/lego" ];
 
   meta = with lib; {
     description = "Let's Encrypt client and ACME library written in Go";
