@@ -44,7 +44,24 @@ let
     }
   ''));
 
-  configFile = pkgs.writeText "nginx.conf" ''
+  awkFormatNginx = builtins.toFile "awkFormat-nginx.awk" ''
+    awk -f
+    {sub(/^[ \t]+/,"");idx=0}
+    /\{/{ctx++;idx=1}
+    /\}/{ctx--}
+    {id="";for(i=idx;i<ctx;i++)id=sprintf("%s%s", id, "\t");printf "%s%s\n", id, $0}
+   '';
+
+  writeNginxConfig = name: text: pkgs.runCommand name {
+    inherit text;
+    passAsFile = [ "text" ];
+  } /* sh */ ''
+    # nginx-config-formatter has an error - https://github.com/1connect/nginx-config-formatter/issues/16
+    ${pkgs.gawk}/bin/awk -f ${awkFormatNginx} "$textPath" | ${pkgs.gnused}/bin/sed '/^\s*$/d' > $out
+    ${pkgs.gixy}/bin/gixy $out
+  '';
+
+  configFile = writeNginxConfig "nginx.conf" ''
     user ${cfg.user} ${cfg.group};
     error_log stderr;
     daemon off;
