@@ -5388,6 +5388,7 @@ in {
 
   casttube = callPackage ../development/python-modules/casttube { };
 
+  stringcase = callPackage ../development/python-modules/stringcase { };
 });
 
 in fix' (extends overrides packages)

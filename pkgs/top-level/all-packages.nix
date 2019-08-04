@@ -23459,4 +23459,5 @@ in
 
   wasmtime = callPackage ../development/interpreters/wasmtime {};
 
+  zfs-replicate = python3Packages.callPackage ../tools/backup/zfs-replicate { };
 }
