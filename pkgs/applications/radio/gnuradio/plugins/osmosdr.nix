@@ -3,6 +3,8 @@
 , cmake
 , pkgconfig
 , boost
+, log4cpp
+, mpir
 , pythonSupport ? true
 , python
 , swig
@@ -71,6 +73,8 @@ stdenv.mkDerivation rec {
   ;
   buildInputs = [
     boost
+    log4cpp
+    mpir
     gnuradio
   ]
     ++ optionals (enableRtlsdr) [ rtl-sdr ]
