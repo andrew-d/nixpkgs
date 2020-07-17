@@ -3,6 +3,8 @@
 , cmake
 , pkgconfig
 , boost
+, log4cpp
+, mpir
 , gnuradio
 , python
 , swig
@@ -36,6 +38,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     cmake
     boost
+    log4cpp
+    mpir
     gnuradio
   ];
 
