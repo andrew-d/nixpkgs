@@ -3,6 +3,8 @@
 , cmake
 , pkgconfig
 , boost
+, log4cpp
+, mpir
 , gnuradio
 , python
 , swig
@@ -37,6 +39,8 @@ in stdenv.mkDerivation {
 
   buildInputs = [
     boost
+    log4cpp
+    mpir
     gnuradio
     limesuite
   ];
