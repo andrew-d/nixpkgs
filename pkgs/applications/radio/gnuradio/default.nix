@@ -14,7 +14,7 @@ rec {
   unwrapped3_7-full = callPackage ./3.7.nix {
     enableSphinx = true;
     enableDoxygen = true;
-    enableComedi = true;
+    # enableComedi = true;
   };
   # no gui components
   unwrapped3_7-no-gui = callPackage ./3.7.nix {
