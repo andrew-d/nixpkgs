@@ -9,9 +9,10 @@
 , python
 , swig
 , gnuradio
+, fftwFloat
 # TODO: not avalable because https://cgit.osmocom.org/osmo-sdr/ is not packaged
 , enableOsmoSDR ? false
-, enableFcd ? true
+, enableFcd ? false
 # TODO: not available because https://github.com/dl1ksv/gr-fcdproplus is not packaged
 , enableFcdPp ? false
 # IQ file source & sink support
@@ -76,6 +77,7 @@ stdenv.mkDerivation rec {
     log4cpp
     mpir
     gnuradio
+    fftwFloat
   ]
     ++ optionals (enableRtlsdr) [ rtl-sdr ]
     ++ optionals (enableUhd) [ uhd ]
